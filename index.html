@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>GREEN-API Test Task</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+      font-size: 14px;
+    }
+    button {
+      cursor: pointer;
+    }
+    textarea {
+      height: 200px;
+      resize: none;
+    }
+    .buttons button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>GREEN-API Test Page</h2>
+
+  <label>ID Instance</label>
+  <input id="idInstance" placeholder="Введите idInstance" />
+
+  <label>API Token Instance</label>
+  <input id="apiToken" placeholder="Введите ApiTokenInstance" />
+
+  <div class="buttons">
+    <button onclick="getSettings()">getSettings</button>
+    <button onclick="getState()">getStateInstance</button>
+    <button onclick="sendMessage()">sendMessage</button>
+    <button onclick="sendFile()">sendFileByUrl</button>
+  </div>
+
+  <label>Response (read-only)</label>
+  <textarea id="response" readonly></textarea>
+</div>
+
+<script>
+  function showResponse(data) {
+    document.getElementById("response").value =
+      JSON.stringify(data, null, 2);
+  }
+   async function getSettings() {
+    const id = document.getElementById("idInstance").value;
+    const token = document.getElementById("apiToken").value;
+
+    const url = `https://api.green-api.com/waInstance${id}/getSettings/${token}`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      showResponse(data);
+    } catch (error) {
+      showResponse({ error: error.message });
+    }
+  }
+</script>
+
+</body>
+</html>
