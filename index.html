@@ -61,11 +61,27 @@
     document.getElementById("response").value =
       JSON.stringify(data, null, 2);
   }
-   async function getSettings() {
+
+  async function getSettings() {
     const id = document.getElementById("idInstance").value;
     const token = document.getElementById("apiToken").value;
 
     const url = `https://api.green-api.com/waInstance${id}/getSettings/${token}`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      showResponse(data);
+    } catch (error) {
+      showResponse({ error: error.message });
+    }
+  }
+
+  async function getState() {
+    const id = document.getElementById("idInstance").value;
+    const token = document.getElementById("apiToken").value;
+
+    const url = `https://api.green-api.com/waInstance${id}/getStateInstance/${token}`;
 
     try {
       const res = await fetch(url);
