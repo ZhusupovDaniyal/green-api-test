@@ -91,6 +91,57 @@
       showResponse({ error: error.message });
     }
   }
+  
+  async function sendMessage() {
+    const id = document.getElementById("idInstance").value;
+    const token = document.getElementById("apiToken").value;
+
+    const url = `https://api.green-api.com/waInstance${id}/sendMessage/${token}`;
+
+    const body = {
+      chatId: "77071112161@c.us",
+      message: "Привет! Это тестовое задание GREEN-API"
+    };
+
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+      showResponse(data);
+    } catch (error) {
+      showResponse({ error: error.message });
+    }
+  }
+
+  async function sendFile() {
+    const id = document.getElementById("idInstance").value;
+    const token = document.getElementById("apiToken").value;
+
+    const url = `https://api.green-api.com/waInstance${id}/sendFileByUrl/${token}`;
+
+    const body = {
+      chatId: "77071112161@c.us",
+      urlFile: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg",
+      fileName: "test-image.jpg"
+    };
+
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+      showResponse(data);
+    } catch (error) {
+      showResponse({ error: error.message });
+    }
+  }
 </script>
 
 </body>
